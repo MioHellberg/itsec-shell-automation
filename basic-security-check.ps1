@@ -7,15 +7,17 @@ $LogFile = "security_log.txt"
 
 function Write-Log {
     param([string]$Message)
-    $entry = "$(Get-Date) - $Message"
-    $entry | Tee-Object -FilePath $LogFile -Append
+    $entry = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - $Message"
+    $entry | Out-File -FilePath $LogFile -Append -Encoding utf8
 }
+
 
 function Test-File {
     param([string]$Path)
     if (Test-Path $Path) {
         Write-Log "Filen '$Path' finns."
-        (Get-Item $Path).Attributes | Out-String | Tee-Object -FilePath $LogFile -Append
+        $info = (Get-Item $Path | Format-List | Out-String)
+        Write-Log $info
     }
     else {
         Write-Log "VARNING: Filen '$Path' saknas."
@@ -34,7 +36,6 @@ function Test-User {
 }
 
 Test-File -Path $File
-
 Test-User -User $User
 
 Write-Log "Kontroller slutförda."

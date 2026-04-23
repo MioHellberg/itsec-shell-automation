@@ -1,0 +1,7 @@
+2023-10-01 10:00:00 User login failed
+2023-10-01 10:05:00 Error: Connection timeout
+2023-10-01 10:10:00 Unauthorized access attempt
+2023-10-01 10:15:00 Successful login
+2023-10-01 10:20:00 Failed password attempt
+2023-10-01 10:25:00 Error in database
+2023-10-01 10:30:00 Unauthorized file access

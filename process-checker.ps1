@@ -2,8 +2,15 @@ $LogFile = "process_check.log"
 
 function Write-Log {
     param([string]$Message)
-    $entry = "$(Get-Date) - $Message"
-    $entry | Tee-Object -FilePath $LogFile -Append
+
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $entry = "$timestamp - $Message"
+
+    # Visa i terminalen
+    Write-Output $entry
+
+    # Skriv till fil i UTF-8 (fixar NUL-problemet)
+    Add-Content -Path $LogFile -Value $entry -Encoding utf8
 }
 
 function Test-Process {
@@ -26,9 +33,13 @@ function Invoke-Checks {
     }
 
     foreach ($proc in Get-Content $Path) {
-        Test-Process -Name $proc
+        if ($proc.Trim() -ne "") {
+            Test-Process -Name $proc.Trim()
+        }
     }
 }
+
+Clear-Content $LogFile -ErrorAction SilentlyContinue
 
 Invoke-Checks "processlist.txt"
 Write-Log "Kontroller slutförda."

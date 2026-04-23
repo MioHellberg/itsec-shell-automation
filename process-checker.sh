@@ -8,7 +8,7 @@ log() {
 
 check_process() {
     local p="$1"
-    if pgrep -f "$p" &>/dev/null; then
+    if powershell -c "Get-Process -Name '$p' -ErrorAction SilentlyContinue" &>/dev/null; then
         log "Processen '$p' körs."
     else
         log "VARNING: Processen '$p' körs inte."

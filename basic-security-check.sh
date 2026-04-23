@@ -7,17 +7,17 @@ log() {
 }
 
 check_file() {
-    local file=$1
+    local file="$1"
     if [ -f "$file" ]; then
         log "Filen '$file' finns."
-        ls -l "$file" | tee -a $logfile
+        log "$(ls -l "$file")"
     else
         log "VARNING: Filen '$file' saknas."
     fi
 }
 
 check_user() {
-    local user=$1
+    local user="$1"
     if id "$user" &>/dev/null; then
         log "Användaren '$user' finns."
     else
