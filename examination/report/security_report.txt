@@ -1,0 +1,12 @@
+Security report
+================
+
+Linux analysis:
+  Total processer: 3
+  Hög risk: 0
+
+Windows analysis:
+  Totalt antal tjänster: 310
+  Körande tjänster: 127
+  Riskabla körande tjänster: 0
+
